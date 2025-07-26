@@ -8,7 +8,7 @@
         </span>
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-300">
-        {{ $t("question") }} {{ currentQuestionIndex + 1 }} of
+        {{ $t("question") }} {{ currentQuestionIndex + 1 }} /
         {{ questions.length }}
       </div>
     </div>

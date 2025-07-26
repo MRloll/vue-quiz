@@ -22,9 +22,6 @@ export const useQuizStore = defineStore("quiz", () => {
   );
 
   const hasSelectedAnswer = computed<boolean>(() => {
-    if (currentQuestion.value?.type === "single") {
-      return selectedAnswers.value.length > 0;
-    }
     return selectedAnswers.value.length > 0;
   });
 
