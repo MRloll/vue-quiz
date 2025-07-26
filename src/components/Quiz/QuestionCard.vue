@@ -24,83 +24,91 @@
         Select more than one answer
       </div>
     </div>
-
     <!-- Answer Options -->
     <div class="space-y-3 mb-8">
-      <div
-        v-for="(option, index) in currentQuestion.options"
-        :key="index"
-        class="relative"
-      >
-        <label
-          class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
-          :class="{
-            'border-blue-500 bg-blue-50 dark:bg-blue-900/20':
-              isSelected(option),
-            'border-green-500 bg-green-50 dark:bg-green-900/20':
-              showFeedback && isCorrect(option),
-            'border-red-500 bg-red-50 dark:bg-red-900/20':
-              showFeedback && isSelected(option) && !isCorrect(option),
-            'border-gray-200 dark:border-gray-600':
-              !showFeedback && !isSelected(option),
-          }"
+      <TransitionGroup name="answer">
+        <div
+          v-for="(option, index) in currentQuestion.options"
+          :key="index"
+          class="relative"
+          :style="{ 'transition-delay': `${index * 50}ms` }"
         >
-          <input
-            v-if="currentQuestion.type === 'single'"
-            type="radio"
-            :value="option"
-            v-model="selectedAnswers[0]"
-            :disabled="showFeedback"
-            class="sr-only"
-          />
-          <input
-            v-else
-            type="checkbox"
-            :value="option"
-            v-model="selectedAnswers"
-            :disabled="showFeedback"
-            class="sr-only"
-          />
+          <label
+            class="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+            :class="{
+              'border-blue-500 bg-blue-50 dark:bg-blue-900/20':
+                isSelected(option),
+              'border-green-500 bg-green-50 dark:bg-green-900/20':
+                showFeedback && isCorrect(option),
+              'border-red-500 bg-red-50 dark:bg-red-900/20':
+                showFeedback && isSelected(option) && !isCorrect(option),
+              'border-gray-200 dark:border-gray-600':
+                !showFeedback && !isSelected(option),
+            }"
+          >
+            <input
+              v-if="currentQuestion.type === 'single'"
+              type="radio"
+              :value="option"
+              v-model="selectedAnswers[0]"
+              :disabled="showFeedback"
+              class="sr-only"
+            />
+            <input
+              v-else
+              type="checkbox"
+              :value="option"
+              v-model="selectedAnswers"
+              :disabled="showFeedback"
+              class="sr-only"
+            />
 
-          <div class="flex items-center w-full">
-            <div
-              class="w-5 h-5 me-3 border-2 rounded transition-colors duration-200"
-              :class="{
-                'border-blue-500 bg-blue-500':
-                  isSelected(option) && !showFeedback,
-                'border-green-500 bg-green-500':
-                  showFeedback && isCorrect(option),
-                'border-red-500 bg-red-500':
-                  showFeedback && isSelected(option) && !isCorrect(option),
-                'border-gray-300 dark:border-gray-600':
-                  !isSelected(option) && !showFeedback,
-                'rounded-full': currentQuestion.type === 'single',
-              }"
-            >
-              <Check
-                v-if="
-                  (isSelected(option) && !showFeedback) ||
-                  (showFeedback && isCorrect(option))
-                "
-                class="w-3 h-3 text-white m-0.5"
-              />
-              <X
-                v-if="showFeedback && isSelected(option) && !isCorrect(option)"
-                class="w-3 h-3 text-white m-0.5"
-              />
+            <div class="flex items-center w-full">
+              <div
+                class="w-5 h-5 me-3 border-2 rounded transition-colors duration-200"
+                :class="{
+                  'border-blue-500 bg-blue-500':
+                    isSelected(option) && !showFeedback,
+                  'border-green-500 bg-green-500':
+                    showFeedback && isCorrect(option),
+                  'border-red-500 bg-red-500':
+                    showFeedback && isSelected(option) && !isCorrect(option),
+                  'border-gray-300 dark:border-gray-600':
+                    !isSelected(option) && !showFeedback,
+                  'rounded-full': currentQuestion.type === 'single',
+                }"
+              >
+                <Check
+                  v-if="
+                    (isSelected(option) && !showFeedback) ||
+                    (showFeedback && isCorrect(option))
+                  "
+                  class="w-3 h-3 text-white m-0.5"
+                />
+                <X
+                  v-if="
+                    showFeedback && isSelected(option) && !isCorrect(option)
+                  "
+                  class="w-3 h-3 text-white m-0.5"
+                />
+              </div>
+              <span class="text-gray-800 dark:text-white font-medium">{{
+                option
+              }}</span>
             </div>
-            <span class="text-gray-800 dark:text-white font-medium">{{
-              option
-            }}</span>
-          </div>
-        </label>
-      </div>
+          </label>
+        </div>
+      </TransitionGroup>
     </div>
 
     <!-- Action Buttons -->
     <div class="flex justify-between">
       <div>
         <button
+          v-motion="{
+            initial: { opacity: 0, scale: 0.9 },
+            enter: { opacity: 1, scale: 1, transition: { type: 'spring' } },
+          }"
           v-if="showFeedback"
           @click="nextQuestion"
           class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
@@ -114,6 +122,10 @@
       </div>
       <div>
         <button
+          v-motion="{
+            initial: { opacity: 0, scale: 0.9 },
+            enter: { opacity: 1, scale: 1, transition: { type: 'spring' } },
+          }"
           v-if="!showFeedback"
           @click="submitAnswer"
           :disabled="!hasSelectedAnswer"
@@ -127,7 +139,11 @@
     <!-- Feedback -->
     <div
       v-if="showFeedback"
-      class="mt-6 p-4 rounded-lg"
+      v-motion="{
+        initial: { opacity: 0, scale: 0.9 },
+        enter: { opacity: 1, scale: 1, transition: { type: 'spring' } },
+      }"
+      class="mt-6 p-4 rounded-lg feedback-pulse"
       :class="
         isAnswerCorrect
           ? 'bg-green-100 dark:bg-green-900/20 border border-green-300 dark:border-green-700'
