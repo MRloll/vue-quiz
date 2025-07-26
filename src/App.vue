@@ -1,18 +1,19 @@
 <template>
   <div
     class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
-    ref="app"
   >
-    <div class="absolute top-4 start-4 flex gap-2">
-      <DarkModeToggle />
-      <SwitchLang />
-    </div>
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-      <Transition name="fade" mode="out-in">
-        <WelcomeScreen v-if="!quizStarted && !quizCompleted" />
-        <QuizInterface v-else-if="quizStarted && !quizCompleted" />
-        <ResultsScreen v-else-if="quizCompleted" />
-      </Transition>
+    <div ref="app">
+      <div class="absolute top-4 start-4 flex gap-2">
+        <DarkModeToggle />
+        <SwitchLang />
+      </div>
+      <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <Transition name="fade" mode="out-in">
+          <WelcomeScreen v-if="!quizStarted && !quizCompleted" />
+          <QuizInterface v-else-if="quizStarted && !quizCompleted" />
+          <ResultsScreen v-else-if="quizCompleted" />
+        </Transition>
+      </div>
     </div>
   </div>
 </template>

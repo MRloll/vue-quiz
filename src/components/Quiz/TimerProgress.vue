@@ -4,11 +4,12 @@
       <div class="flex items-center space-x-2">
         <Clock class="w-5 h-5 text-blue-600" />
         <span class="font-semibold text-gray-800 dark:text-white">
-          Time Remaining: {{ formatSecondsToTime(timeRemaining) }}
+          {{ $t("time_remaining") }} {{ formatSecondsToTime(timeRemaining) }}
         </span>
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-300">
-        Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}
+        {{ $t("question") }} {{ currentQuestionIndex + 1 }} of
+        {{ questions.length }}
       </div>
     </div>
 

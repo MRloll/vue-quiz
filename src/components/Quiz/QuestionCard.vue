@@ -21,7 +21,7 @@
         class="text-sm text-amber-600 dark:text-amber-400 mb-4 flex items-center"
       >
         <AlertCircle class="w-4 h-4 me-1" />
-        Select more than one answer
+        {{ $t("select_multi") }}
       </div>
     </div>
     <!-- Answer Options -->
@@ -115,8 +115,8 @@
         >
           {{
             currentQuestionIndex === questions.length - 1
-              ? "Finish Quiz"
-              : "Next Question"
+              ? $t("finish")
+              : $t("next")
           }}
         </button>
       </div>
@@ -131,7 +131,7 @@
           :disabled="!hasSelectedAnswer"
           class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
         >
-          Submit Answer
+          {{ $t("submit") }}
         </button>
       </div>
     </div>
@@ -164,7 +164,7 @@
               : 'text-red-800 dark:text-red-200'
           "
         >
-          {{ isAnswerCorrect ? "Correct!" : "Incorrect!" }}
+          {{ isAnswerCorrect ? $t("correct") : $t("incorrect") }}
         </span>
       </div>
       <div
@@ -172,9 +172,7 @@
         class="mt-2 text-sm"
         :class="'text-red-700 dark:text-red-300'"
       >
-        Correct answer{{
-          currentQuestion.correctAnswers.length > 1 ? "s" : ""
-        }}:
+        {{ $t("correct_answer") }}:
         {{ currentQuestion.correctAnswers.join(", ") }}
       </div>
     </div>

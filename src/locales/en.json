@@ -1,3 +1,21 @@
 {
-  "hello": "Hello"
+  "quiz": "Vue.js Quiz Challenge",
+  "test_urself": "Test your knowledge with questions. You have 5 minutes to complete the quiz.",
+  "start_quiz": "Start Quiz",
+  "time_remaining": "Time Remaining:",
+  "question": "Question",
+  "of": "of",
+  "next": "Next Question",
+  "submit": "Submit",
+  "correct": "Correct",
+  "correct_answer": "Correct Answer",
+  "incorrect": "Incorrect !",
+  "feedback": "Feedback",
+  "score": "Score",
+  "select_multi": " Select more than one answer",
+  "finish": "Finish Quiz",
+  "quiz_completed": "Quiz Completed",
+  "scored": "You scored",
+  "restart": "Restart Quiz",
+  "export": "Export Results"
 }

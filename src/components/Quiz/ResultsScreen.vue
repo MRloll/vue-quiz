@@ -13,10 +13,10 @@
       <div class="mb-6">
         <Trophy class="w-16 h-16 text-yellow-500 mx-auto mb-4 animate-bounce" />
         <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">
-          Quiz Completed!
+          {{ $t("quiz_completed") }}
         </h2>
         <p class="text-xl text-gray-600 dark:text-gray-300">
-          You scored {{ score }} out of {{ questions.length }}
+          {{ $t("scored") + " " + score + " / " + questions.length }}
         </p>
       </div>
 
@@ -34,14 +34,14 @@
           @click="restartQuiz"
           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 me-4"
         >
-          Restart Quiz
+          {{ $t("restart") }}
         </button>
         <button
           @click="exportResults"
           class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
         >
           <Download class="w-4 h-4 inline me-2" />
-          Export Results
+          {{ $t("export") }}
         </button>
       </div>
     </div>
